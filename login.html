@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login · Neural Navigators LMS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-body">
+
+<div class="login-wrapper">
+  <div class="login-left">
+    <div class="login-brand">
+      <div class="brand-logo">🧠</div>
+      <h1>Neural Navigators</h1>
+      <p>Smart Adaptive Learning Management System</p>
+    </div>
+    <div class="login-features">
+      <div class="lf-item">📊 AI-Powered Learning Paths</div>
+      <div class="lf-item">📈 Real-time Analytics</div>
+      <div class="lf-item">🎯 Personalized Dashboard</div>
+      <div class="lf-item">🏅 Progress Tracking</div>
+    </div>
+    <div class="login-badge">🏆 AUREX'26 AI Hackathon — Neural Navigators</div>
+  </div>
+
+  <div class="login-right">
+    <div class="login-card">
+      <h2>Welcome Back 👋</h2>
+      <p class="login-sub">Login to your Neural Navigators account</p>
+
+      <div id="loginError" class="login-error hidden">❌ Invalid credentials. Please try again.</div>
+
+      <div class="form-group">
+        <label>Enrollment Number</label>
+        <input type="text" id="enrollment" placeholder="e.g. AC-2024-001" />
+      </div>
+
+      <div class="form-group">
+        <label>Semester</label>
+        <select id="semester">
+          <option value="">Select Semester</option>
+          <option value="1">Semester 1</option>
+          <option value="2">Semester 2</option>
+          <option value="3">Semester 3</option>
+          <option value="4">Semester 4</option>
+          <option value="5">Semester 5</option>
+          <option value="6">Semester 6</option>
+          <option value="7">Semester 7</option>
+          <option value="8">Semester 8</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <div class="pass-wrap">
+          <input type="password" id="password" placeholder="Enter your password" />
+          <span onclick="togglePass()" class="pass-eye">👁</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Role</label>
+        <select id="role">
+          <option value="student">Student</option>
+          <option value="instructor">Instructor</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+
+      <button class="btn-login" onclick="handleLogin()">Login →</button>
+
+      <p class="login-hint">Demo: Any enrollment + semester + password: <b>admin123</b></p>
+    </div>
+  </div>
+</div>
+
+<script>
+function togglePass() {
+  const p = document.getElementById('password');
+  p.type = p.type === 'password' ? 'text' : 'password';
+}
+
+function handleLogin() {
+  const enrollment = document.getElementById('enrollment').value;
+  const semester = document.getElementById('semester').value;
+  const password = document.getElementById('password').value;
+  const role = document.getElementById('role').value;
+  const error = document.getElementById('loginError');
+
+  if (!enrollment || !semester || !password) {
+    error.textContent = '❌ Please fill all fields!';
+    error.classList.remove('hidden');
+    return;
+  }
+
+  if (password !== 'admin123') {
+    error.textContent = '❌ Wrong password! Use: admin123';
+    error.classList.remove('hidden');
+    return;
+  }
+
+  // Save to session
+  sessionStorage.setItem('user', JSON.stringify({ enrollment, semester, role }));
+  error.classList.add('hidden');
+
+  // Redirect to dashboard
+  window.location.href = 'dashboard.html';
+}
+</script>
+</body>
+</html>
